@@ -3,7 +3,7 @@ const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
 const userContainer = document.getElementById('user-container');
-const catForm = document.getElementById('cat-button');
+const catForm = document.getElementById('send-cat-container');
 
 var name = null;
 do {
@@ -17,6 +17,11 @@ socket.emit('new-user', name);
 // Whenever we recieve 'chat-message', do this
 socket.on('chat-message', data => {
   appendMessage(`${data.name}: ${data.message}`);
+});
+
+// Whenever we recieve 'chat-message', do this
+socket.on('cat-message', data => {
+  appendImage(`${data.name}`, `${data.src}`);
 });
 
 socket.on('user-connected', data => {
@@ -44,10 +49,14 @@ messageForm.addEventListener('submit', e => {
 });
 
 catForm.addEventListener('submit', e => {
-  e.stop();
   e.preventDefault();
-
-
+  $.getJSON("https://aws.random.cat/meow")
+  .done(function(data) {
+    const src = data.file;
+    appendImage("You", src);
+    socket.emit('send-cat-message', src);
+  });
+  
   messageInput.value = '';
 });
 
@@ -57,11 +66,12 @@ function appendMessage(message) {
   messageContainer.append(messageElement);
 }
 
-// function appendUser(user) {
-//   const userElement = document.createElement('li');
-//   userElement.innerText = user;
-//   userContainer.append(userElement);
-// }
+function appendImage(name, src) {
+  name = name + ": ";
+  var div = document.createElement('div');
+  div.innerHTML= name + "<img src='" + src + "' width=250px height=250px>"
+  messageContainer.append(div);
+}
 
 function updateUsers(users) {
   // Remove all users from user container
@@ -80,8 +90,9 @@ function updateUsers(users) {
 function removeUser(user) {
   $("li").each(function() {
    if ($(this)[0].innerHTML == user) {
-      $(this).fadeOut("slow");
-      return;
+      $(this).fadeOut("slow", function() {
+        return false;
+      });
     }
   });
 }

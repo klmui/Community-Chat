@@ -1,4 +1,5 @@
 const io = require('socket.io')(3000);
+var catMe = require('cat-me');
 
 const users = {};
 
@@ -20,6 +21,12 @@ io.on('connection', socket => {
     console.log(message);
     // Send message to all other clients on this server except for person that sent the message
     socket.broadcast.emit('chat-message', { message: message, name:
+    users[socket.id] });
+  });
+
+  socket.on('send-cat-message', src => {
+    // Send message to all other clients on this server except for person that sent the message
+    socket.broadcast.emit('cat-message', { src: src, name:
     users[socket.id] });
   });
 
