@@ -1,4 +1,4 @@
-const io = require('socket.io')(process.env.PORT);
+const io = require('socket.io')(80);
 
 const users = {};
 

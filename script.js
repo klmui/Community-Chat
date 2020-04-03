@@ -1,4 +1,4 @@
-const socket = io("https://serene-archimedes-2c389b.netlify.com");
+const socket = io("https://boiling-badlands-93584.herokuapp.com");
 const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
