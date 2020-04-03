@@ -9,7 +9,6 @@ var name = null;
 do {
   name = prompt('What is your name?');
 } while (name == "");
-appendMessage("You joined");
 
 // Send message to server
 socket.emit('new-user', name);
