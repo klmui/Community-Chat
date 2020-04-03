@@ -16,11 +16,13 @@ socket.emit('new-user', name);
 // Whenever we recieve 'chat-message', do this
 socket.on('chat-message', data => {
   appendMessage(`${data.name}: ${data.message}`);
+  scrollToBottom();
 });
 
 // Whenever we recieve 'chat-message', do this
 socket.on('cat-message', data => {
   appendImage(`${data.name}`, `${data.src}`);
+  scrollToBottom();
 });
 
 socket.on('user-connected', data => {
@@ -45,6 +47,7 @@ messageForm.addEventListener('submit', e => {
   // Send data from client to server
   socket.emit('send-chat-message', message);
   messageInput.value = '';
+  scrollToBottom();
 });
 
 catForm.addEventListener('submit', e => {
@@ -55,9 +58,16 @@ catForm.addEventListener('submit', e => {
     appendImage("You", src);
     socket.emit('send-cat-message', src);
   });
-  
   messageInput.value = '';
+  scrollToBottom();
 });
+
+function scrollToBottom() {
+  $("html, body").animate({ 
+    scrollTop: $( 
+      'html, body').get(0).scrollHeight 
+  }, 1000); 
+}
 
 function appendMessage(message) {
   const messageElement = document.createElement('div');
