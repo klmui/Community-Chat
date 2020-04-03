@@ -14,11 +14,25 @@
     <script defer src="script.js"></script>
   </head>
   <body>
-    <div id="message-container"></div>
-    <form id="send-container">
-      <input type="text" id="message-input">
-      <button type="submit" id="send-button">Send</button>
-    </form>
+
+    <div class='row' style="height: 100vh; width: 100%;">
+      <div class='col-9' style="height: 100vh; width: 100vh;">
+        <div id="message-container" class="overflow-auto"></div>
+        <form id="send-container">
+          <input type="text" id="message-input">
+          <button type="submit" id="send-button">Send</button>
+          <form id="send-random-cat">
+            <button type="submit" id="cat-button">Send a Random Cat</button>
+          </form>
+        </form>
+      </div>
+      <div class='col-3 border-left'>
+        <h3 class="text-center border-bottom">Users</h1>
+        <ul id="user-container" class="overflow-auto">
+
+        </ul>
+      </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

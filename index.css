@@ -3,12 +3,17 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
+  font-size: 16px;
+  font-family: roboto;
+  background: #00F260;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #0575E6, #00F260);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-#message-container {
+/* #message-container {
   width: 80%;
   max-width: 1200px;
-}
+} */
 
 #message-container div {
   background-color: #CCC;
@@ -21,11 +26,10 @@ body {
 
 #send-container {
   position: fixed;
-  padding-bottom: 30px;
-  bottom: 0;
+  bottom: 30px;
   background-color: white;
   max-width: 1200px;
-  width: 80%;
+  width: 73%;
   display: flex;
 }
 
