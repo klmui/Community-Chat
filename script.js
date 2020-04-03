@@ -10,7 +10,7 @@ do {
   name = prompt('What is your name?');
 } while (name == "");
 appendMessage("You joined");
-appendUser(name);
+
 // Send message to server
 socket.emit('new-user', name);
 
@@ -19,9 +19,10 @@ socket.on('chat-message', data => {
   appendMessage(`${data.name}: ${data.message}`);
 });
 
-socket.on('user-connected', name => {
-  appendMessage(`${name} connected`);
-  appendUser(name);
+socket.on('user-connected', data => {
+  appendMessage(`${data.name} connected`);
+  console.log(Object.values(data.users));
+  updateUsers(Object.values(data.users));
 });
 
 socket.on('user-disconnected', name => {
@@ -56,18 +57,30 @@ function appendMessage(message) {
   messageContainer.append(messageElement);
 }
 
-function appendUser(user) {
-  const userElement = document.createElement('li');
-  userElement.innerText = user;
-  userContainer.append(userElement);
+// function appendUser(user) {
+//   const userElement = document.createElement('li');
+//   userElement.innerText = user;
+//   userContainer.append(userElement);
+// }
+
+function updateUsers(users) {
+  // Remove all users from user container
+  $("li").each(function() {
+      $(this).hide();
+  });
+
+  // Add all users from user container
+  users.forEach(function(user) {
+    const userElement = document.createElement('li');
+    userElement.innerText = user;
+    userContainer.append(userElement);
+  });
 }
 
 function removeUser(user) {
   $("li").each(function() {
-    console.log("li");
-    console.log($(this)[0].innerHTML);
    if ($(this)[0].innerHTML == user) {
-      $(this).hide();
+      $(this).fadeOut("slow");
       return;
     }
   });
