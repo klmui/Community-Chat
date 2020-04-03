@@ -1,4 +1,4 @@
-const io = require('socket.io')(3000);
+const io = require('socket.io')(process.env.PORT);
 var catMe = require('cat-me');
 
 const users = {};
