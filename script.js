@@ -4,6 +4,7 @@ const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
 const userContainer = document.getElementById('user-container');
 const catForm = document.getElementById('send-cat-container');
+const userCol = document.getElementById('user-col');
 
 var name = null;
 do {
@@ -17,12 +18,14 @@ socket.emit('new-user', name);
 socket.on('chat-message', data => {
   appendMessage(`${data.name}: ${data.message}`);
   scrollToBottom();
+  extendCol();
 });
 
 // Whenever we recieve 'chat-message', do this
 socket.on('cat-message', data => {
   appendImage(`${data.name}`, `${data.src}`);
   scrollToBottom();
+  extendCol();
 });
 
 socket.on('user-connected', data => {
@@ -48,6 +51,7 @@ messageForm.addEventListener('submit', e => {
   socket.emit('send-chat-message', message);
   messageInput.value = '';
   scrollToBottom();
+  extendCol();
 });
 
 catForm.addEventListener('submit', e => {
@@ -60,13 +64,20 @@ catForm.addEventListener('submit', e => {
   });
   messageInput.value = '';
   scrollToBottom();
+  extendCol();
 });
 
 function scrollToBottom() {
   $("html, body").animate({ 
     scrollTop: $( 
       'html, body').get(0).scrollHeight 
-  }, 1000); 
+  }, 1000);
+}
+
+function extendCol() {
+  // Extend user col
+  var newHeight = $('html, body').get(0).scrollHeight + 'px';
+  userCol.style.height = newHeight;
 }
 
 function appendMessage(message) {

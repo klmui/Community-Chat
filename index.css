@@ -33,3 +33,9 @@ body {
 #message-input {
   flex-grow: 1;
 }
+
+#user-container {
+  position: sticky;
+  top: 0;
+  right: 0;
+}
