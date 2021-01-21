@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "cat-me": "^1.0.3",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
